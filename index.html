@@ -17,18 +17,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"hchsoon.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="碎碎念">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="碎碎念">
+  <meta name="description" content="备忘录">
+<meta property="og:type" content="website">
+<meta property="og:title" content="hchsoon的备忘录">
+<meta property="og:url" content="https://hchsoon.github.io/index.html">
+<meta property="og:site_name" content="hchsoon的备忘录">
+<meta property="og:description" content="备忘录">
 <meta property="og:locale">
 <meta property="article:author" content="hchsoon">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="https://hchsoon.github.io/">
 
 
 <script id="page-configurations">
@@ -41,7 +43,7 @@
   };
 </script>
 
-  <title>碎碎念</title>
+  <title>hchsoon的备忘录</title>
   
 
 
@@ -92,7 +94,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">碎碎念</h1>
+      <h1 class="site-title">hchsoon的备忘录</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -155,21 +157,21 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/wireshark-link-dissector/">
+    <link itemprop="mainEntityOfPage" href="https://hchsoon.github.io/2021/09/12/backlog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hchsoon">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="备忘录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="碎碎念">
+      <meta itemprop="name" content="hchsoon的备忘录">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/12/wireshark-link-dissector/" class="post-title-link" itemprop="url">Wireshark 链路层协议解析器</a>
+            <a href="/2021/09/12/backlog/" class="post-title-link" itemprop="url">挖坑</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +182,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-09-12 21:22:45 / Modified: 21:34:06" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
+              <time title="Created: 2021-09-12 21:36:18 / Modified: 21:39:19" itemprop="dateCreated datePublished" datetime="2021-09-12T21:36:18+08:00">2021-09-12</time>
             </span>
 
           
@@ -195,8 +197,10 @@
 
       
           <ol>
-<li>使用场景<br>在正常的链路层协议头前有若干未知字节，需要直接跳过的情景。<br>参考Ethernet协议的解析器，应该将lua解析器挂到<code>wtap_encap</code>解析器表下。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//wireshark/epan/dissectors/packet-eth.c</span></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">proto_reg_handoff_eth</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">dissector_handle_t</span> eth_handle;</span><br><span class="line">  <span class="keyword">capture_dissector_handle_t</span> eth_cap_handle;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Get a handle for the Firewall-1 dissector. */</span></span><br><span class="line">  fw1_handle = <span class="built_in">find_dissector_add_dependency</span>(<span class="string">&quot;fw1&quot;</span>, proto_eth);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Get a handle for the ethertype dissector. */</span></span><br><span class="line">  ethertype_handle = <span class="built_in">find_dissector_add_dependency</span>(<span class="string">&quot;ethertype&quot;</span>, proto_eth);</span><br><span class="line"></span><br><span class="line">  eth_handle = <span class="built_in">create_dissector_handle</span>(dissect_eth, proto_eth);</span><br><span class="line">  <span class="built_in">dissector_add_uint</span>(<span class="string">&quot;wtap_encap&quot;</span>, WTAP_ENCAP_ETHERNET, eth_handle);</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> p_testeth = Proto(<span class="string">&quot;testEth&quot;</span>, <span class="string">&quot;test ethernet&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> eth_dissector = Dissector.get(<span class="string">&quot;eth_maybefcs&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p_testeth.dissector</span><span class="params">(buffer,pinfo,tree)</span></span></span><br><span class="line">    <span class="keyword">local</span> buffer_length = buffer:<span class="built_in">len</span>()</span><br><span class="line">    </span><br><span class="line">    eth_dissector:call(buffer(<span class="number">6</span>,buffer_length<span class="number">-6</span>):tvb(),pinfo,tree)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> wtap_encap_table = DissectorTable.get(<span class="string">&quot;wtap_encap&quot;</span>)</span><br><span class="line">wtap_encap_table:add(wtap.USER15, p_testeth)</span><br></pre></td></tr></table></figure></li>
+<li>blog</li>
+<li>arkime</li>
+<li>vue</li>
+<li>论文阅读</li>
 </ol>
 
       
@@ -217,21 +221,21 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/1970/01/01/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://hchsoon.github.io/2021/09/12/wireshark-link-dissector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hchsoon">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="备忘录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="碎碎念">
+      <meta itemprop="name" content="hchsoon的备忘录">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/1970/01/01/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2021/09/12/wireshark-link-dissector/" class="post-title-link" itemprop="url">Wireshark 链路层协议解析器</a>
         </h2>
 
         <div class="post-meta">
@@ -240,16 +244,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 1970-01-01 08:00:00" itemprop="dateCreated datePublished" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
+              <time title="Created: 2021-09-12 21:22:45 / Modified: 21:36:26" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-12 21:02:22" itemprop="dateModified" datetime="2021-09-12T21:02:22+08:00">2021-09-12</time>
-              </span>
 
           
 
@@ -262,20 +260,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+          <ol>
+<li>使用场景<br>在正常的链路层协议头前有若干未知字节，需要直接跳过的情景。<br>参考Ethernet协议的解析器，应该将lua解析器挂到<code>wtap_encap</code>解析器表下。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/12/wireshark-link-dissector/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -349,7 +343,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">hchsoon</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">备忘录</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -363,7 +357,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
