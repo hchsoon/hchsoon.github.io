@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"hchsoon.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1.使用场景 一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。 2.解析器编写 Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。 参考链路层的Ethernet协议解析器，应该将lua解析器挂到">
+  <meta name="description" content="使用场景 一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。 解析器编写 Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。 参考链路层的Ethernet协议解析器，应该将lua解析器挂到wtap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Wireshark 链路层协议解析器">
 <meta property="og:url" content="https://hchsoon.github.io/2021/09/12/wireshark-link-dissector/index.html">
 <meta property="og:site_name" content="hchsoon的备忘录">
-<meta property="og:description" content="1.使用场景 一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。 2.解析器编写 Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。 参考链路层的Ethernet协议解析器，应该将lua解析器挂到">
+<meta property="og:description" content="使用场景 一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。 解析器编写 Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。 参考链路层的Ethernet协议解析器，应该将lua解析器挂到wtap">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-09-12T13:22:45.000Z">
-<meta property="article:modified_time" content="2021-09-12T14:18:30.604Z">
+<meta property="article:modified_time" content="2021-09-13T13:45:30.650Z">
 <meta property="article:author" content="hchsoon">
 <meta property="article:tag" content="Wireshark">
 <meta name="twitter:card" content="summary">
@@ -183,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-09-12 21:22:45 / Modified: 22:18:30" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
+              <time title="Created: 2021-09-12 21:22:45" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-13 21:45:30" itemprop="dateModified" datetime="2021-09-13T21:45:30+08:00">2021-09-13</time>
+              </span>
 
           
 
@@ -199,10 +205,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1-使用场景">1.使用场景</h3>
+        <h3 id="使用场景">使用场景</h3>
 <p>一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。
 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。</p>
-<h3 id="2-解析器编写">2.解析器编写</h3>
+<h3 id="解析器编写">解析器编写</h3>
 <p>Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。
 参考链路层的Ethernet协议解析器，应该将lua解析器挂到<code>wtap_encap</code>解析器表下，至于wtap_encap的含义，下节讨论。</p>
 <span id="more"></span>
@@ -211,13 +217,18 @@
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> p_testeth = Proto(<span class="string">&quot;testEthOffset&quot;</span>, <span class="string">&quot;test ethernet offset&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取eth协议解析器，之后解析6个字节偏移之后的数据</span></span><br><span class="line"><span class="keyword">local</span> eth_dissector = Dissector.get(<span class="string">&quot;eth_maybefcs&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 编写解析函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p_testeth.dissector</span><span class="params">(buffer,pinfo,tree)</span></span></span><br><span class="line">    <span class="keyword">local</span> buffer_length = buffer:<span class="built_in">len</span>()</span><br><span class="line">    </span><br><span class="line">    eth_dissector:call(buffer(<span class="number">6</span>,buffer_length<span class="number">-6</span>):tvb(),pinfo,tree)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取wtap_encap解析器表对象</span></span><br><span class="line"><span class="keyword">local</span> wtap_encap_table = DissectorTable.get(<span class="string">&quot;wtap_encap&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>接下来将解析器注册到wtap_encap表中，那么这里应该填啥</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 注册</span></span><br><span class="line">wtap_encap_table:add(wtap.?, p_testeth)</span><br></pre></td></tr></table></figure>
-<h3 id="3-wtap-encap表">3.wtap_encap表</h3>
-<p>先咕</p>
+<h3 id="DLT">DLT</h3>
+<p>DLT，即<code>Data Link Type</code>，指数据的链路类型，<code>libpcap</code>的维护者为每种链路层协议格式都分配了一个DLT值，多数情况下</p>
+<h3 id="wtap-encap表">wtap_encap表</h3>
+<p><code>wtap_encap</code>是<code>wiretap encapsulation</code>的简称，wiretap是Wireshark中解析数据包的部分，因此本表存放着各种链路层类型对应封装格式的解析器。
+先咕</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wtap_encap_table:add(wtap.USER15, p_testeth)</span><br></pre></td></tr></table></figure>
 <h3 id="参考链接">参考链接</h3>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/wireshark/wireshark">Wireshark 源码</a></li>
 <li><a target="_blank" rel="noopener" href="https://wiki.wireshark.org/HowToDissectAnything">Wireshark Wiki: How to Dissect Anything</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wireshark.org/docs/wsug_html_chunked/ChUserDLTsSection.html">Wireshark Doc-Ch11 Customizing Wireshark 11.20. User DLTs protocol table</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tcpdump.org/linktypes.html">Tcpdump.org:LINK-LAYER HEADER TYPES</a></li>
 <li><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/draft-tuexen-opsawg-pcapng/">pcapng文件格式定义</a></li>
 </ul>
 
@@ -300,7 +311,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">1.使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%BC%96%E5%86%99"><span class="nav-number">2.</span> <span class="nav-text">2.解析器编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-wtap-encap%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">3.wtap_encap表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%99%A8%E7%BC%96%E5%86%99"><span class="nav-number">2.</span> <span class="nav-text">解析器编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DLT"><span class="nav-number">3.</span> <span class="nav-text">DLT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wtap-encap%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">wtap_encap表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

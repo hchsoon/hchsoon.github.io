@@ -248,10 +248,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-09-12 21:22:45 / Modified: 22:18:30" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
+              <time title="Created: 2021-09-12 21:22:45" itemprop="dateCreated datePublished" datetime="2021-09-12T21:22:45+08:00">2021-09-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-13 21:45:30" itemprop="dateModified" datetime="2021-09-13T21:45:30+08:00">2021-09-13</time>
+              </span>
 
           
 
@@ -264,10 +270,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-使用场景">1.使用场景</h3>
+          <h3 id="使用场景">使用场景</h3>
 <p>一般情况下链路层协议在数据包中每个分组中的偏移为0，但是不排除链路层前有若干字节偏移的情况。以解决这种情况为引，介绍一下Wireshark链路层解析器的编写和使用。
 本文中假设链路层在每个分组中的偏移为6，前6个字节含义未定。</p>
-<h3 id="2-解析器编写">2.解析器编写</h3>
+<h3 id="解析器编写">解析器编写</h3>
 <p>Wireshark的每个解析器都需要挂到一个解析器表之下，才能进行相应的解析。
 参考链路层的Ethernet协议解析器，应该将lua解析器挂到<code>wtap_encap</code>解析器表下，至于wtap_encap的含义，下节讨论。</p>
           <!--noindex-->
