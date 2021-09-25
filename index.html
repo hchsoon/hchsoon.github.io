@@ -158,6 +158,64 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://hchsoon.github.io/2021/09/25/ida-linuxserver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hchsoon">
+      <meta itemprop="description" content="备忘录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hchsoon的备忘录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/25/ida-linuxserver/" class="post-title-link" itemprop="url">ida-linuxserver</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-25 22:11:28 / Modified: 22:11:29" itemprop="dateCreated datePublished" datetime="2021-09-25T22:11:28+08:00">2021-09-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://hchsoon.github.io/2021/09/22/vhd-file-format/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -189,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:07:41" itemprop="dateModified" datetime="2021-09-25T22:07:41+08:00">2021-09-25</time>
+                <time title="Modified: 2021-09-25 22:12:56" itemprop="dateModified" datetime="2021-09-25T22:12:56+08:00">2021-09-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,7 +276,7 @@
 <h3 id="文件头">文件头</h3>
 <p>Conectix</p>
 <h3 id="010Editor模板解析">010Editor模板解析</h3>
-<p><img src="vhd-file-format/010editor.png" alt=""></p>
+<p><img src="010editor.png" alt=""></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FSeek</span>(<span class="built_in">FileSize</span>()<span class="number">-512</span>);</span><br><span class="line">FOOTER Footer;</span><br></pre></td></tr></table></figure>
 <p>VHD文件的最后512字节（个人视作最后一个扇区）为VHD文件的Footer，Footer有如下结构</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span> cookie[<span class="number">8</span>]; <span class="comment">/* Identifies original creator of the disk */</span></span><br><span class="line">  DWORD Features &lt;read=feaRead&gt;;</span><br><span class="line">  DWORD FileformatVersion;</span><br><span class="line">  ULONGLONG DataOffset &lt;comment=OffsetCheck&gt;;</span><br><span class="line">  <span class="keyword">time_t</span> TimeStamp &lt;read=CorrectTime&gt;;  <span class="comment">//This is the number of seconds since January 1, 2000 12:00:00 AM in UTC/GMT</span></span><br><span class="line">  <span class="keyword">char</span> CreaterApplication[<span class="number">4</span>];</span><br><span class="line">  DWORD CreaterVersion;</span><br><span class="line">  OS CreaterHostOS;</span><br><span class="line">  ULONGLONG OrginalSize;</span><br><span class="line">  ULONGLONG CurrentSize;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    WORD Cylinder;</span><br><span class="line">    BYTE Heads;</span><br><span class="line">    BYTE SectorsPerCylinder;</span><br><span class="line">  &#125;DiskGeometry;</span><br><span class="line">  DISK DiskType;</span><br><span class="line">  DWORD CheckSum &lt;comment=<span class="string">&quot;Checksum Of footer&quot;</span>&gt;;</span><br><span class="line">  BYTE UUID[<span class="number">16</span>] ;</span><br><span class="line">  BYTE SavedState &lt;read=statecheck&gt;;</span><br><span class="line">  BYTE hidden; <span class="comment">//tapdisk-specific field</span></span><br><span class="line">  BYTE Reserved[<span class="number">426</span>];</span><br><span class="line">&#125;FOOTER &lt;size=<span class="number">512</span>, open=<span class="literal">true</span>&gt;;</span><br></pre></td></tr></table></figure>
@@ -477,7 +535,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
